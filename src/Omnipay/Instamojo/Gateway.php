@@ -26,6 +26,10 @@ class Gateway extends AbstractGateway
         );
     }
 
+    /**
+     * Setting up the salt for signature
+     * @return [type] [description]
+     */
     public function getSalt()
     {
         return $this->getParameter('salt');
@@ -35,7 +39,7 @@ class Gateway extends AbstractGateway
     {
         return $this->setParameter('salt', $value);
     }
-
+    
     public function getApiKey()
     {
         return $this->getParameter('api_key');
@@ -56,14 +60,14 @@ class Gateway extends AbstractGateway
         return $this->setParameter('auth_token', $value);
     }
 
-    public function getEndPoint()
+    public function getLink()
     {
-        return $this->getParameter('end_point');
+        return $this->getParameter('link');
     }
 
-    public function setEndPoint($value)
+    public function setLink($value)
     {
-        return $this->setParameter('end_point', $value);
+        return $this->setParameter('link', $value);
     }
 
     public function purchase(array $parameters = array())

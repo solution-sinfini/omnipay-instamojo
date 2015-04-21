@@ -19,16 +19,61 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     {
         return $this->setParameter('username', $value);
     }
+    
+    public function getSalt()
+    {
+        return $this->getParameter('salt');
+    }
+
+    public function setSalt($value)
+    {
+        return $this->setParameter('salt', $value);
+    }
+
+    /**
+     * function to send the instamojo link
+     * @return [type] [description]
+     */
+    public function getLink()
+    {
+        return $this->getParameter('link');
+    }
+
+    public function setLink($value)
+    {
+        return $this->setParameter('link', $value);
+    }
+
+    public function getApiKey()
+    {
+        return $this->getParameter('api_key');
+    }
+
+    public function setApiKey($value)
+    {
+        return $this->setParameter('api_key', $value);
+    }
+
+    public function getAuthToken()
+    {
+        return $this->getParameter('auth_token');
+    }
+
+    public function setAuthToken($value)
+    {
+        return $this->setParameter('auth_token', $value);
+    }
 
     public function sendData($data)
     {
-        $httpResponse = $this->httpClient->post($this->getEndpoint(), null, $data)->send();
-        return new Response($this, $httpResponse->getBody());
+        $url = $this->getLink().'?'.http_build_query($data, '', '&').'&embed=form';
+
+        return $this->response = new Response($this, $data, $url);
     }
 
     public function getData()
     {
-        $this->validate('amount', 'salt', 'end_point');
+        $this->validate('amount');
 
         $data = array();
 

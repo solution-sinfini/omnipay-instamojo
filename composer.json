@@ -10,7 +10,6 @@
         "payment",
         "purchase",
         "instamojo",
-        "raven"
     ],
     "homepage": "https://github.com/sinfini/omnipay-instamojo",
     "license": "MIT",
@@ -24,9 +23,9 @@
         "psr-0": { "Omnipay\\Instamojo\\" : "src/" }
     },
     "require": {
-        "omnipay/common": "~2.0"
+        "omnipay/common": "dev-master"
     },
     "require-dev": {
-        "omnipay/tests": "~2.0"
+        "omnipay/tests": "dev-master"
     }
 }

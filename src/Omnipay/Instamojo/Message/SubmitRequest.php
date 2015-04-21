@@ -13,9 +13,9 @@ class SubmitRequest extends AbstractRequest
     {
         $data = parent::getData();
 
-        $this->validate('amount', 'currency');
+        $this->validate('amount');
 
-        $data['data_amount'] = $this->getAmountInteger();
+        $data['data_amount'] = $this->getAmount();
         $data['data_readonly'] = 'data_amount';
 
         return $data;
@@ -25,7 +25,7 @@ class SubmitRequest extends AbstractRequest
     {
         return hash_hmac(
             'sha1',
-            $data['amount'],
+            $this->getAmount(),
             $this->getSalt()
         );
     }

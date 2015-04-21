@@ -3,13 +3,13 @@ namespace Omnipay\Instamojo\Message;
 
 class CompletePurchaseRequest extends PurchaseRequest
 {
+    protected $liveEndPoint = 'https://www.instamojo.com/api/1.1/';
+    protected $testEndPoint = 'https://www.instamojo.com/api/1.1/';
     /**
      * {@inheritdoc}
      */
     public function getData()
     {
-        $this->validate('payment_id');
-
         $data = array(
             'payment_id'  => $this->getTransactionReference(),
         );
@@ -17,23 +17,35 @@ class CompletePurchaseRequest extends PurchaseRequest
         return $data;
     }
 
+    /**
+     * function to get the payment id
+     * @return [type] [description]
+     */
     public function getTransactionReference()
     {
         return $this->httpRequest->query->get('payment_id');
     }
     
     /**
-     * {@inheritdoc}
+     * function to check the status of payment
+     * on complete ofthe purchase
      */
     public function sendData($data)
     {
-        $headers = array();
-        $headers[] = array('X-Api-key:'.$this->getApiKey());
-        $headers[] = array('X-Auth-Token:'.$this->getAuthToken());
-
         if ($data['payment_id']) {
-            $httpResponse = $this->httpClient->post($this->getEndPoint().'/payments/'.$data['payment_id'], $headers, $data)->send();
-            return $this->response = new CompletePurchaseResponse($this, $httpResponse->xml());
+            $httpRequest = $this->httpClient->createRequest(
+                'GET',
+                $this->liveEndPoint.'payments/'.$data['payment_id'],
+                null,
+                $data
+            );
+
+            $httpResponse = $httpRequest
+                ->setHeader('X-Api-key', $this->getApiKey())
+                ->setHeader('X-Auth-Token', $this->getAuthToken())
+                ->send();
+                
+            return $this->response = new CompletePurchaseResponse($this, $httpResponse->json());
         }
     }
 }

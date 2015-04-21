@@ -7,6 +7,12 @@ namespace Omnipay\Instamojo\Message;
  */
 class AuthorizeRequest extends SubmitRequest
 {
+    /**
+     * function to create data
+     * signature is require for authentication
+     * at instamojo
+     * @return [type] [description]
+     */
     public function getData()
     {
         $data = parent::getData();

@@ -4,45 +4,42 @@ namespace Omnipay\Instamojo\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
+use Omnipay\Common\Message\RedirectResponseInterface;
 
 /**
  * Instamojo Response
  */
-class Response extends AbstractResponse
+class Response extends AbstractResponse implements RedirectResponseInterface
 {
-    public function __construct(RequestInterface $request, $data)
+    public function __construct(RequestInterface $request, $data, $redirectUrl)
     {
-        $this->request = $request;
-        parse_str($data, $this->data);
+        parent::__construct($request, $data);
+        $this->redirectUrl = $redirectUrl;
+        $this->data = $data;
     }
 
     public function isSuccessful()
     {
-        return isset($this->data['Status']) && in_array($this->data['Status'], array(
-            '200')
-        );
+        return false;
     }
 
-    public function getCode()
+    public function isRedirect()
     {
-        return (
-            isset($this->data['ErrorCode']) &&
-            $this->data['ErrorCode'] != ''
-        ) ? $this->data['ErrorCode'] : null;
+        return true;
     }
 
-    public function getMessage()
+    public function getRedirectUrl()
     {
-        return (
-            isset($this->data['Message']) &&
-            $this->data['Message'] !== ''
-        ) ? $this->data['Message'] : null;
+        return $this->redirectUrl;
     }
 
-    public function getTransactionReference()
+    public function getRedirectMethod()
     {
-        if (isset($this->data['payment_id'])) {
-            return $this->data['payment_id'];
-        }
+        return 'GET';
+    }
+
+    public function getRedirectData()
+    {
+        return $this->getData();
     }
 }
