@@ -9,7 +9,7 @@
         "pay",
         "payment",
         "purchase",
-        "instamojo",
+        "instamojo"
     ],
     "homepage": "https://github.com/sinfini/omnipay-instamojo",
     "license": "MIT",
