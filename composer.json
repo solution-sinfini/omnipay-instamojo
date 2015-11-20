@@ -13,19 +13,16 @@
     ],
     "homepage": "https://github.com/sinfini/omnipay-instamojo",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Aman Jain",
-            "email": "amanjain1992@gmail.com"
-        }
-    ],
     "autoload": {
         "psr-0": { "Omnipay\\Instamojo\\" : "src/" }
     },
     "require": {
-        "omnipay/common": "dev-master"
+         "php": ">=5.4"
     },
     "require-dev": {
         "omnipay/tests": "dev-master"
+    },
+    "suggests" : {
+        "omnipay/common": "~2.0"
     }
 }
