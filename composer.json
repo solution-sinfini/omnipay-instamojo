@@ -13,6 +13,7 @@
     ],
     "homepage": "https://github.com/sinfini/omnipay-instamojo",
     "license": "MIT",
+    "minimum-stability": "dev",
     "autoload": {
         "psr-0": { "Omnipay\\Instamojo\\" : "src/" }
     },
